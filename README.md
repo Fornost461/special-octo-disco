@@ -4,6 +4,7 @@ Paint with the mouse or press [space] to sit back and enjoy the sceneries changi
 * [mouse]: paint
 * [enter]: generate a new scenery
 * [space]: play / pause
+
 Note: if you resize the game window, you should reload `index.html` or the game will be distorted.
 ### About this project
 This is an attempt to familiarize myself with `<canvas/>`. I have some experience in programming but not much in JavaScript, so my code is far from optimal. The code does not use an internet connection, it works locally.
