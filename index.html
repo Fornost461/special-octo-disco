@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Canvas.js – test page</title>
+        <script src="Math.js"></script>
+        <script src="Random.js"></script>
+        <script src="Color.js"></script>
+        <script src="CursorColor.js"></script>
+        <script src="Canvas.js"></script>
+        <script src="Keyboard.js"></script>
+        <script src="Tile.js"></script>
+        <script src="Grid.js"></script>
+    </head>
+    <body>
+        <script>
+            var gameArea = makeGameArea();
+            var grid = makeGrid(gameArea);
+            gameArea.clear();
+            grid.draw();
+        </script>
+    </body>
+</html>
