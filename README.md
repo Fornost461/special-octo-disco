@@ -6,8 +6,10 @@ Paint with the mouse, or press [space] to sit back and enjoy the sceneries chang
 * [space]: play / pause
 
 Note: if you resize the game window, you should reload `index.html`, otherwise the game may be distorted.
+
+The code does not use an internet connection, it is supposed to work locally.
 ### About this project
-This is an attempt to familiarize myself with `<canvas/>`. I have some experience in programming but not much in JavaScript, so my code is far from optimal. The code does not use an internet connection, it works locally.
+This is an attempt to familiarize myself with `<canvas/>`. I have some experience in programming but not much with JavaScript, so my code is far from optimal.
 
 ![Public domain](http://i.creativecommons.org/p/zero/1.0/88x31.png)
 The license is [CC0](http://creativecommons.org/publicdomain/zero/1.0/), which means you should _not_ ask for my permission if you want to reuse these files, nor cite me as having authored them. Feel free to copy, improve and build better things from them!
