@@ -8,7 +8,7 @@ Paint with the mouse, or press [space] to sit back and enjoy the sceneries chang
 * [P]: toggle pretty mode (enabled by default)
 * [H]: show help
 
-:warning: if you resize the game window, generate a new scenery or toggle a mode, your current artwork will vanish.
+:warning: If you resize the game window, generate a new scenery or toggle a mode, your current artwork will vanish.
 
 The code does not use an internet connection, it is supposed to work locally.
 ### About this project
