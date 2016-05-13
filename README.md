@@ -5,7 +5,7 @@ Paint with the mouse, or press [space] to sit back and enjoy the sceneries chang
 * [enter]: generate a new scenery
 * [space]: play / pause
 
-Note: if you resize the game window, you should reload `index.html`, otherwise the game may be distorted.
+:warning: if you resize the game window, the game will be reloaded without your current artwork.
 
 The code does not use an internet connection, it is supposed to work locally.
 ### About this project

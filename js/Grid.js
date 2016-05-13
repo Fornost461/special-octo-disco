@@ -26,6 +26,7 @@ function makeGrid(gameArea) {
     var cursorOnATile = false;
 
     var intervalID = null;
+    var timeoutID = null;
     var keysDown = {};
 
     // private methods
@@ -48,12 +49,17 @@ function makeGrid(gameArea) {
 
     function handleKeyDown(event) {
         var key = event.keyCode;
-        console.info("Pressed: " + String(key));
+        //~ console.info("Pressed: " + String(key));
         if (key === Keyboard.ENTER) {
             instance.renew();
         } else if (key === Keyboard.SPACE) {
             instance.toggleAnimation();
         }
+    }
+    
+    function reload() {
+        // window.location.reload bugs if directly specified in setTimeout
+        window.location.reload();
     }
 
     // initialize 2D-array ‘instance.tiles’
@@ -151,6 +157,14 @@ function makeGrid(gameArea) {
 
     gameArea.getCanvas().addEventListener("mousemove", instance.magicCursor);
     addEventListener("keydown", handleKeyDown);
+
+    // reload after resizing to prevent a distorted game experience
+    window.onresize = function(){
+        if (timeoutID !== null) {
+            clearTimeout(timeoutID);
+        }
+        timeoutID = setTimeout(reload, 100);
+    };
 
     return instance;
 }
