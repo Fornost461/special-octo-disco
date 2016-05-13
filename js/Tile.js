@@ -12,6 +12,7 @@ function makeTile(ctx, x = 0, y = 0, width = 10, height = 10) {
     instance.width = width;
     instance.height = height;
     instance.color = new Color(ctx);
+    instance.color.initializePretty();
 
     instance.draw = function () {
         instance.color.apply();

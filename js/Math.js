@@ -34,6 +34,10 @@ var MATH = (function () {
         enforceInterval: function(value, min, max) {
             if (min > max) { throw new RangeError("min must be smaller than max"); }
             return MATH.enforceMin(MATH.enforceMax(value, max), min);
+        },
+
+        xor: function(a, b) {
+            return (a && !b) || (!a && b);
         }
     };
 })();

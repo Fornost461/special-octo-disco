@@ -62,7 +62,7 @@ function makeGameArea() {
     }
 
     instance.clear = function () {
-        instance.bgColor.initialize();  // randomly update bgColor
+        instance.bgColor.initializePretty();
         instance.bgColor.apply();
         context.fillRect(0, 0, canvas.width, canvas.height);
     };

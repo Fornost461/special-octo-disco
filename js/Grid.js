@@ -24,6 +24,7 @@ function makeGrid(gameArea) {
     var cursorColor = makeCursorColor(context);
     var previousCursorLocation = { row: -1, column: -1};
     var cursorOnATile = false;
+    var prettyMode = true;
 
     var intervalID = null;
     var timeoutID = null;
@@ -54,9 +55,12 @@ function makeGrid(gameArea) {
             instance.renew();
         } else if (key === Keyboard.SPACE) {
             instance.toggleAnimation();
+        } else if (key === Keyboard.P) {
+            prettyMode = !prettyMode;
+            //~ console.info("prettyMode: " + String(prettyMode));
         }
     }
-    
+
     function reload() {
         // window.location.reload bugs if directly specified in setTimeout
         window.location.reload();
@@ -95,10 +99,16 @@ function makeGrid(gameArea) {
     instance.renew = function () {
         var row;
         var column;
+        renewComponents();
         gameArea.clear();
         for (row = 0; row < nRows; row++) {
             for (column = 0; column < nCols; column++) {
-                instance.tiles[row][column].color.initialize();
+                if (prettyMode) {
+                    instance.tiles[row][column].color.initializePretty();
+                }
+                else {
+                    instance.tiles[row][column].color.initialize();
+                }
                 instance.tiles[row][column].draw();
             }
         }
@@ -136,7 +146,6 @@ function makeGrid(gameArea) {
                 cursorOnATile = true;
                 if (row !== previousCursorLocation.row || column !== previousCursorLocation.column) {
                     cursorOnANewTile = true;
-                    //~ instance.tiles[row][column].color.initialize(0, Random.between(160, 255), 0);
                     cursorColor.nextStep();
                     cursorColor.apply();
                     instance.tiles[row][column].drawNoColor();
