@@ -36,6 +36,7 @@ function makeGameArea() {
     // public fields
     //~ instance.bgColor = new Color(context, 220, 220, 220);
     instance.bgColor = new Color(context);
+    instance.mode = 2;
 
     // privileged methods
     instance.getContext = function () {
@@ -62,7 +63,13 @@ function makeGameArea() {
     }
 
     instance.clear = function () {
-        instance.bgColor.initializePretty();
+        if (instance.mode === 0) {
+            instance.bgColor.initialize();
+        } else if (instance.mode === 1) {
+            instance.bgColor.initialize(0, 0, 0);
+        } else if (instance.mode === 2) {
+            instance.bgColor.initializePretty();
+        }
         instance.bgColor.apply();
         context.fillRect(0, 0, canvas.width, canvas.height);
     };

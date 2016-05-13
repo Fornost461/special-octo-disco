@@ -4,6 +4,9 @@ Paint with the mouse, or press [space] to sit back and enjoy the sceneries chang
 * [mouse]: paint
 * [enter]: generate a new scenery
 * [space]: play / pause
+* [D]: toggle dark mode
+* [P]: toggle pretty mode (enabled by default)
+* [H]: show help
 
 :warning: if you resize the game window, the game will be reloaded without your current artwork.
 

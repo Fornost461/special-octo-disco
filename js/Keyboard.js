@@ -5,6 +5,8 @@ var Keyboard = (function () {
     return {
         ENTER: 13,
         SPACE: 32,
+        D: 68,
+        H: 72,
         P: 80
     };
 })();

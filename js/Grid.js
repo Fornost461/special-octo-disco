@@ -24,7 +24,6 @@ function makeGrid(gameArea) {
     var cursorColor = makeCursorColor(context);
     var previousCursorLocation = { row: -1, column: -1};
     var cursorOnATile = false;
-    var prettyMode = true;
 
     var intervalID = null;
     var timeoutID = null;
@@ -55,16 +54,26 @@ function makeGrid(gameArea) {
             instance.renew();
         } else if (key === Keyboard.SPACE) {
             instance.toggleAnimation();
+        } else if (key === Keyboard.D) {
+            instance.mode = instance.mode === 1 ? 2 : 1;
+            instance.renew();
+        } else if (key === Keyboard.H) {
+            alert("* [mouse]: paint\n* [enter]: generate a new scenery\n* [space]: play / pause\n* [P]: toggle pretty mode (enabled by default)\n* [D]: toggle dark mode\n* [H]: show this help");
         } else if (key === Keyboard.P) {
-            prettyMode = !prettyMode;
-            //~ console.info("prettyMode: " + String(prettyMode));
+            instance.mode = instance.mode === 2 ? 0 : 2;
+            instance.renew();
         }
+        /** 
+*/
     }
 
     function reload() {
         // window.location.reload bugs if directly specified in setTimeout
         window.location.reload();
     }
+
+    // public fields
+    instance.mode = 2;
 
     // initialize 2D-array ‘instance.tiles’
     (function () {
@@ -100,14 +109,16 @@ function makeGrid(gameArea) {
         var row;
         var column;
         renewComponents();
+        gameArea.mode = instance.mode;
         gameArea.clear();
         for (row = 0; row < nRows; row++) {
             for (column = 0; column < nCols; column++) {
-                if (prettyMode) {
-                    instance.tiles[row][column].color.initializePretty();
-                }
-                else {
+                if (instance.mode === 0) {
                     instance.tiles[row][column].color.initialize();
+                } else if (instance.mode === 1) {
+                    instance.tiles[row][column].color.initialize(0, 0, 0);
+                } else if (instance.mode === 2) {
+                    instance.tiles[row][column].color.initializePretty();
                 }
                 instance.tiles[row][column].draw();
             }
