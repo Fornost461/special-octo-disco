@@ -1,89 +1,91 @@
 if (typeof loadedFiles === "undefined") { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Math.js")) { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Random.js")) { throw new Error("module required"); }
+if (!loadedFiles.hasOwnProperty("Lists.js")) { throw new Error("module required"); }
 
-function Color(context, red, green, blue) {
+function Color() {
+    throw new Error("obsolete call to Color(). use makeColor() instead");
+}
+
+function makeColor(context, red, green, blue) {
     "use strict";
-    this.context = context;
-    this.initialize(red, green, blue);
+    var instance = {};
+
+    // private fields
+    var components = {};
+    var badComponents = [[1,2,0],[0,2,1]];  // codes which generate ugly colors
+
+    // private methods
+    var randComponent = function (intensity) {
+        //~ return 0;
+        if (intensity === 0) { return 0; }
+        if (intensity === 1) { return Random.between(120, 255); }
+        return 255;
+    };
+
+    // public fields
+    instance.context = context;
+
+    // privileged methods
+    instance.add = function (color) {
+        instance.r += color.r;
+        instance.g += color.g;
+        instance.b += color.b;
+        return instance.enforceValidity();
+    };
+
+    instance.apply = function () {
+        instance.context.fillStyle = instance.toString();
+    };
+
+    instance.enforceValidity = function () {
+        var nr = MATH.enforceInterval(instance.r, 0, 255);
+        var ng = MATH.enforceInterval(instance.g, 0, 255);
+        var nb = MATH.enforceInterval(instance.b, 0, 255);
+
+        if (instance.r === nr && instance.g === ng && instance.b === nb) {
+            return true;
+        }
+        else {
+            instance.r = nr;
+            instance.g = ng;
+            instance.b = nb;
+            return false;
+        }
+    };
+
+    instance.initialize = function (red, green, blue) {
+        instance.r = typeof red === "undefined" ? Random.between(0, 255) : red;
+        instance.g = typeof green === "undefined" ? Random.between(0, 255) : green;
+        instance.b = typeof blue === "undefined" ? Random.between(0, 255) : blue;
+        instance.enforceValidity();
+    };
+
+    instance.initializePretty = function () {
+        instance.r = randComponent(components.r);
+        instance.g = randComponent(components.g);
+        instance.b = randComponent(components.b);
+        instance.enforceValidity();
+    };
+
+    instance.renewComponents = function () {
+        var newComponents;
+        do {
+            newComponents = Random.sort([0, 1, 2]);
+        } while (Lists.inArray(badComponents, Lists.equals, newComponents));
+        components.r = newComponents[0];
+        components.g = newComponents[1];
+        components.b = newComponents[2];
+    };
+
+    instance.toString = function () {
+        return "rgb(" + instance.r + "," + instance.g + "," + instance.b + ")";
+    };
+
+    instance.renewComponents();
+    instance.initialize(red, green, blue);
+
+    return instance;
 }
-
-Color.prototype.enforceValidity = function () {
-    var nr = MATH.enforceInterval(this.r, 0, 255);
-    var ng = MATH.enforceInterval(this.g, 0, 255);
-    var nb = MATH.enforceInterval(this.b, 0, 255);
-
-    if (this.r === nr && this.g === ng && this.b === nb) {
-        return true;
-    }
-    else {
-        this.r = nr;
-        this.g = ng;
-        this.b = nb;
-        return false;
-    }
-};
-
-Color.prototype.initialize = function (red, green, blue) {
-    this.r = typeof red === "undefined" ? Random.between(0, 255) : red;
-    this.g = typeof green === "undefined" ? Random.between(0, 255) : green;
-    this.b = typeof blue === "undefined" ? Random.between(0, 255) : blue;
-    this.enforceValidity();
-};
-
-var components = {};
-var randComponent = function (intensity) {
-    //~ return 0;
-    if (intensity === 0) { return 0; }
-    if (intensity === 1) { return Random.between(120, 255); }
-    return 255;
-}
-var weightedSum = function (list, base) {
-    var p = base;
-    var i = list.length - 1;
-    var n = list[i];
-    for (i--; i >= 0 ; i--) {
-        n += p * list[i];
-        p *= base;
-    }
-    return n;
-}
-var uglyList = function (list) {
-    var n = weightedSum(list, 10);  // codes are easier to read in decimal than in ternary
-    return n === 120 || n === 21;   // codes which generate ugly colors
-}
-var renewComponents = function () {
-    var list;
-    do {
-        list = Random.sort([0, 1, 2]);
-    } while (uglyList(list));
-    components.r = list[0];
-    components.g = list[1];
-    components.b = list[2];
-};
-renewComponents();
-
-/* yields r, g, b, rg, gb or rb but not rgb */
-Color.prototype.initializePretty = function () {
-    this.r = randComponent(components.r);
-    this.g = randComponent(components.g);
-    this.b = randComponent(components.b);
-    this.enforceValidity();
-};
-
-Color.prototype.toString = function () {
-    return "rgb(" + this.r + "," + this.g + "," + this.b + ")";
-};
-
-Color.prototype.apply = function () {
-    this.context.fillStyle = this.toString();
-};
-
-Color.prototype.add = function (color) {
-    this.r += color.r;
-    this.g += color.g;
-    this.b += color.b;
-    return this.enforceValidity();
-};
 
 loadedFiles["Color.js"] = true;

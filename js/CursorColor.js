@@ -13,7 +13,7 @@ function makeCursorColor(context, red, green, blue) {
     }
 
     // public fields
-    instance.color = new Color(context, red, green, blue);
+    instance.color = makeColor(context, red, green, blue);
     instance.increment = 6;
     instance.stepsBeforeNewVector = 0;
     instance.maxStepsWithoutChange = 4;

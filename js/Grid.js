@@ -58,13 +58,11 @@ function makeGrid(gameArea) {
             instance.mode = instance.mode === 1 ? 2 : 1;
             instance.renew();
         } else if (key === Keyboard.H) {
-            alert("* [mouse]: paint\n* [enter]: generate a new scenery\n* [space]: play / pause\n* [P]: toggle pretty mode (enabled by default)\n* [D]: toggle dark mode\n* [H]: show this help");
+            alert("[mouse] paint\n[enter] generate a new scenery\n[space] play / pause\n[P] toggle pretty mode (enabled by default)\n[D] toggle dark mode\n[H] show this help");
         } else if (key === Keyboard.P) {
             instance.mode = instance.mode === 2 ? 0 : 2;
             instance.renew();
         }
-        /** 
-*/
     }
 
     function reload() {

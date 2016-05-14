@@ -34,8 +34,7 @@ function makeGameArea() {
     })();
 
     // public fields
-    //~ instance.bgColor = new Color(context, 220, 220, 220);
-    instance.bgColor = new Color(context);
+    instance.bgColor = makeColor(context);
     instance.mode = 2;
 
     // privileged methods
@@ -43,9 +42,9 @@ function makeGameArea() {
         return context;
     };
 
-    instance.getCanvas = function () {
-        return canvas;
-    };
+    //~ instance.getCanvas = function () {
+        //~ return canvas;
+    //~ };
 
     instance.getWidth = function () {
         return canvas.width;
