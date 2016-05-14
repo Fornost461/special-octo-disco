@@ -3,7 +3,7 @@ if (!loadedFiles.hasOwnProperty("Math.js")) { throw new Error("module required")
 if (!loadedFiles.hasOwnProperty("Random.js")) { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Lists.js")) { throw new Error("module required"); }
 
-var Color = (function () {
+var Colors = (function () {
     "use strict";
     var singleton = {};
 
@@ -73,9 +73,21 @@ function makeColor(context, red, green, blue) {
     };
 
     instance.initialize = function (red, green, blue) {
-        instance.r = typeof red === "undefined" ? Random.between(0, 255) : red;
-        instance.g = typeof green === "undefined" ? Random.between(0, 255) : green;
-        instance.b = typeof blue === "undefined" ? Random.between(0, 255) : blue;
+        if (typeof red === "undefined" || typeof green === "undefined" || typeof blue === "undefined") {
+            if (Colors.mode === 0) {
+                instance.tiles[row][column].color.initialize();
+            } else if (Colors.mode === 1) {
+                instance.tiles[row][column].color.initializePretty();
+            } else if (Colors.mode === 2) {
+                instance.tiles[row][column].color.initialize(0, 0, 0);
+            } else if (Colors.mode === 3) {
+                instance.tiles[row][column].color.initialize(255, 255, 255);
+            }        }
+        else {
+            instance.r = red;
+            instance.g = green;
+            instance.b = blue;
+        }
         instance.enforceValidity();
     };
 
@@ -95,4 +107,4 @@ function makeColor(context, red, green, blue) {
     return instance;
 }
 
-loadedFiles["Color.js"] = true;
+loadedFiles["Colors.js"] = true;

@@ -1,5 +1,6 @@
 if (typeof loadedFiles === "undefined") { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Tile.js")) { throw new Error("module required"); }
+if (!loadedFiles.hasOwnProperty("Colors.js")) { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("CursorColor.js")) { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Keyboard.js")) { throw new Error("module required"); }
 
@@ -86,16 +87,16 @@ function makeGrid(gameArea) {
         } else if (key === Keyboard.H) {
             alert("[mouse] paint\n[enter] generate a new scenery\n[space] play / pause\n[P] toggle pretty mode (enabled by default)\n[D] toggle dark mode\n[H] show this help");
         } else if (key === Keyboard.B) {
-            instance.mode = instance.mode === 3 ? 1 : 3;
-            console.info("toggle bright mode: " + String(instance.mode));
+            instance.mode = Colors.mode === 3 ? 1 : 3;
+            console.info("toggle bright mode: " + String(Colors.mode));
             instance.renew();
         } else if (key === Keyboard.D) {
-            instance.mode = instance.mode === 2 ? 1 : 2;
-            console.info("toggle dark mode: " + String(instance.mode));
+            Colors.mode = Colors.mode === 2 ? 1 : 2;
+            console.info("toggle dark mode: " + String(Colors.mode));
             instance.renew();
         } else if (key === Keyboard.P) {
-            instance.mode = instance.mode === 1 ? 0 : 1;
-            console.info("toggle pretty mode: " + String(instance.mode));
+            Colors.mode = Colors.mode === 1 ? 0 : 1;
+            console.info("toggle pretty mode: " + String(Colors.mode));
             instance.renew();
         }
     }
@@ -115,18 +116,17 @@ function makeGrid(gameArea) {
     instance.renew = function () {
         var row;
         var column;
-        Color.renewComponents();
-        gameArea.mode = instance.mode;
+        Colors.renewComponents();
         gameArea.clear();
         for (row = 0; row < nRows; row++) {
             for (column = 0; column < nCols; column++) {
-                if (instance.mode === 0) {
+                if (Colors.mode === 0) {
                     instance.tiles[row][column].color.initialize();
-                } else if (instance.mode === 1) {
+                } else if (Colors.mode === 1) {
                     instance.tiles[row][column].color.initializePretty();
-                } else if (instance.mode === 2) {
+                } else if (Colors.mode === 2) {
                     instance.tiles[row][column].color.initialize(0, 0, 0);
-                } else if (instance.mode === 3) {
+                } else if (Colors.mode === 3) {
                     instance.tiles[row][column].color.initialize(255, 255, 255);
                 }
                 instance.tiles[row][column].draw();
@@ -183,9 +183,6 @@ function makeGrid(gameArea) {
             }
         }
     };
-
-    // public fields
-    instance.mode = 1;
 
     initialize();
     gameArea.getCanvas().addEventListener("mousemove", instance.magicCursor);

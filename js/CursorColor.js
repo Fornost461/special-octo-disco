@@ -1,5 +1,5 @@
 if (typeof loadedFiles === "undefined") { throw new Error("module required"); }
-if (!loadedFiles.hasOwnProperty("Color.js")) { throw new Error("module required"); }
+if (!loadedFiles.hasOwnProperty("Colors.js")) { throw new Error("module required"); }
 
 function makeCursorColor(context, red, green, blue) {
     "use strict";
@@ -57,6 +57,5 @@ function makeCursorColor(context, red, green, blue) {
     
     return instance;
 }
-
 
 loadedFiles["CursorColor.js"] = true;
