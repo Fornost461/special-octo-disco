@@ -9,10 +9,8 @@ function makeGrid(gameArea) {
     var instance = {};
 
     // private fields
-    //~ var tileWidth = 40;
-    //~ var tileHeight = 40;
-    var tileWidth = 20;
-    var tileHeight = 20;
+    var tileWidth = 32;
+    var tileHeight = 32;
     var tileGapH = 1;  // horizontal gap between 2 tiles
     var tileGapV = 1;  //   vertical gap between 2 tiles
 
