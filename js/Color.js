@@ -3,17 +3,35 @@ if (!loadedFiles.hasOwnProperty("Math.js")) { throw new Error("module required")
 if (!loadedFiles.hasOwnProperty("Random.js")) { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Lists.js")) { throw new Error("module required"); }
 
-function Color() {
-    throw new Error("obsolete call to Color(). use makeColor() instead");
-}
+var Color = (function () {
+    "use strict";
+    var singleton = {};
+
+    // private fields
+    var badComponents = [[1,2,0],[0,2,1]];  // codes which generate ugly colors
+
+    // public fields
+    singleton.mode = 1;
+
+    // privileged methods
+    singleton.renewComponents = function () {
+        var newComponents;
+        do {
+            newComponents = Random.sort([0, 1, 2]);
+        } while (Lists.inArray(badComponents, Lists.equals, newComponents));
+        singleton.rIntensity = newComponents[0];
+        singleton.gIntensity = newComponents[1];
+        singleton.bIntensity = newComponents[2];
+    };
+
+    singleton.renewComponents();
+
+    return singleton;
+})();
 
 function makeColor(context, red, green, blue) {
     "use strict";
     var instance = {};
-
-    // private fields
-    var components = {};
-    var badComponents = [[1,2,0],[0,2,1]];  // codes which generate ugly colors
 
     // private methods
     var randComponent = function (intensity) {
@@ -62,27 +80,16 @@ function makeColor(context, red, green, blue) {
     };
 
     instance.initializePretty = function () {
-        instance.r = randComponent(components.r);
-        instance.g = randComponent(components.g);
-        instance.b = randComponent(components.b);
+        instance.r = randComponent(Color.rIntensity);
+        instance.g = randComponent(Color.gIntensity);
+        instance.b = randComponent(Color.bIntensity);
         instance.enforceValidity();
-    };
-
-    instance.renewComponents = function () {
-        var newComponents;
-        do {
-            newComponents = Random.sort([0, 1, 2]);
-        } while (Lists.inArray(badComponents, Lists.equals, newComponents));
-        components.r = newComponents[0];
-        components.g = newComponents[1];
-        components.b = newComponents[2];
     };
 
     instance.toString = function () {
         return "rgb(" + instance.r + "," + instance.g + "," + instance.b + ")";
     };
 
-    instance.renewComponents();
     instance.initialize(red, green, blue);
 
     return instance;

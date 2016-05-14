@@ -15,8 +15,8 @@ function makeGameArea() {
 
     //~ canvas.width = 712;
     //~ canvas.height = 440;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    //~ canvas.width = window.innerWidth;
+    //~ canvas.height = window.innerHeight;
     //~ canvas.style.display = "block";
     //~ canvas.style.margin = "auto";
     //~ canvas.style.margin = "0";
@@ -35,23 +35,29 @@ function makeGameArea() {
 
     // public fields
     instance.bgColor = makeColor(context);
-    instance.mode = 2;
+    instance.mode = 1;
+
+    // private methods
+    var learnDimensions = function () {
+        canvas.width = instance.getWidth();
+        canvas.height = instance.getHeight();
+    };
 
     // privileged methods
     instance.getContext = function () {
         return context;
     };
 
-    //~ instance.getCanvas = function () {
-        //~ return canvas;
-    //~ };
+    instance.getCanvas = function () {
+        return canvas;
+    };
 
     instance.getWidth = function () {
-        return canvas.width;
+        return canvas.offsetWidth;
     };
 
     instance.getHeight = function () {
-        return canvas.height;
+        return canvas.offsetHeight;
     };
 
     instance.getMousePos = function (event) {
@@ -65,9 +71,11 @@ function makeGameArea() {
         if (instance.mode === 0) {
             instance.bgColor.initialize();
         } else if (instance.mode === 1) {
-            instance.bgColor.initialize(0, 0, 0);
-        } else if (instance.mode === 2) {
             instance.bgColor.initializePretty();
+        } else if (instance.mode === 2) {
+            instance.bgColor.initialize(0, 0, 0);
+        } else if (instance.mode === 3) {
+            instance.bgColor.initialize(255, 255, 255);
         }
         instance.bgColor.apply();
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -76,6 +84,11 @@ function makeGameArea() {
     instance.nextFrame = function (f) {
         requestAnimationFrame(f);
     };
+
+    learnDimensions();
+
+    // update coordinates after user resizes window
+    addEventListener("resize", learnDimensions);
 
     return instance;
 }

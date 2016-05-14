@@ -2,11 +2,12 @@
 Paint with the mouse, or press [space] to sit back and enjoy the sceneries changing automagically. If you feel adventurous, you can also attempt to do both simultaneously.
 ## Controls:
 * [mouse]: paint
+* [H]: show help
 * [enter]: generate a new scenery
-* [space]: play / pause
+* [space]: toggle animation of scenery
+* [B]: toggle bright mode
 * [D]: toggle dark mode
 * [P]: toggle pretty mode (enabled by default)
-* [H]: show help
 
 :warning: If you resize the game window, generate a new scenery or toggle a mode, your current artwork will vanish.
 
