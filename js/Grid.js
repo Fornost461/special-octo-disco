@@ -87,72 +87,76 @@ function makeGrid(gameArea) {
         } else if (key === Keyboard.H) {
             alert("[mouse] paint\n[enter] generate a new scenery\n[space] play / pause\n[P] toggle pretty mode (enabled by default)\n[D] toggle dark mode\n[H] show this help");
         } else if (key === Keyboard.B) {
-            instance.mode = Colors.mode === 3 ? 1 : 3;
-            console.info("toggle bright mode: " + String(Colors.mode));
+            Colors.mode = Colors.mode === 3 ? 1 : 3;
+            //~ console.info("toggle bright mode: " + String(Colors.mode));
             instance.renew();
         } else if (key === Keyboard.D) {
             Colors.mode = Colors.mode === 2 ? 1 : 2;
-            console.info("toggle dark mode: " + String(Colors.mode));
+            //~ console.info("toggle dark mode: " + String(Colors.mode));
             instance.renew();
         } else if (key === Keyboard.P) {
             Colors.mode = Colors.mode === 1 ? 0 : 1;
-            console.info("toggle pretty mode: " + String(Colors.mode));
+            //~ console.info("toggle pretty mode: " + String(Colors.mode));
             instance.renew();
         }
     }
 
     // privileged methods
-    instance.draw = function () {
+    instance.draw = function ()
+    {
         var row;
         var column;
         gameArea.clear();
-        for (row = 0; row < nRows; row++) {
-            for (column = 0; column < nCols; column++) {
+        for (row = 0; row < nRows; row++)
+        {
+            for (column = 0; column < nCols; column++)
+            {
                 instance.tiles[row][column].draw();
             }
         }
     };
 
-    instance.renew = function () {
+    instance.renew = function ()
+    {
         var row;
         var column;
         Colors.renewComponents();
         gameArea.clear();
-        for (row = 0; row < nRows; row++) {
-            for (column = 0; column < nCols; column++) {
-                if (Colors.mode === 0) {
-                    instance.tiles[row][column].color.initialize();
-                } else if (Colors.mode === 1) {
-                    instance.tiles[row][column].color.initializePretty();
-                } else if (Colors.mode === 2) {
-                    instance.tiles[row][column].color.initialize(0, 0, 0);
-                } else if (Colors.mode === 3) {
-                    instance.tiles[row][column].color.initialize(255, 255, 255);
-                }
+        for (row = 0; row < nRows; row++)
+        {
+            for (column = 0; column < nCols; column++)
+            {
+                instance.tiles[row][column].color.initialize();
                 instance.tiles[row][column].draw();
             }
         }
     };
 
-    instance.startAnimation = function (interval = 712) {
+    instance.startAnimation = function (interval = 712)
+    {
         intervalID = setInterval(instance.renew, interval);
     };
 
-    instance.stopAnimation = function () {
+    instance.stopAnimation = function ()
+    {
         clearInterval(intervalID);
         intervalID = null;
     };
 
-    instance.toggleAnimation = function () {
-        if (intervalID === null) {
+    instance.toggleAnimation = function ()
+    {
+        if (intervalID === null)
+        {
             instance.startAnimation();
         }
-        else {
+        else
+        {
             instance.stopAnimation();
         }
     };
 
-    instance.magicCursor = function (event) {
+    instance.magicCursor = function (event)
+    {
         var pixelPos = gameArea.getMousePos(event);
         var cursorWasOnATile = cursorOnATile;
         var cursorOnANewTile = false;
@@ -160,11 +164,14 @@ function makeGrid(gameArea) {
         var column;
         cursorOnATile = false;
         row = pixelToTileCoordinate(pixelPos.y, y, tileHeight, tileGapV, nRows);
-        if (row !== null) {
+        if (row !== null)
+        {
             column = pixelToTileCoordinate(pixelPos.x, x, tileWidth, tileGapH, nCols);
-            if (column !== null) {
+            if (column !== null)
+            {
                 cursorOnATile = true;
-                if (row !== previousCursorLocation.row || column !== previousCursorLocation.column) {
+                if (row !== previousCursorLocation.row || column !== previousCursorLocation.column)
+                {
                     cursorOnANewTile = true;
                     cursorColor.nextStep();
                     cursorColor.apply();
@@ -189,8 +196,10 @@ function makeGrid(gameArea) {
     addEventListener("keydown", handleKeyDown);
 
     // update coordinates after user resizes window
-    addEventListener("resize", function(){
-        if (timeoutID !== null) {
+    addEventListener("resize", function()
+    {
+        if (timeoutID !== null)
+        {
             clearTimeout(timeoutID);
         }
         timeoutID = setTimeout(initialize, 100);

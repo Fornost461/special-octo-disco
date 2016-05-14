@@ -45,56 +45,84 @@ function makeColor(context, red, green, blue) {
     instance.context = context;
 
     // privileged methods
+    instance.setRGB = function (r, g, b) {
+        instance.r = r;
+        instance.g = g;
+        instance.b = b;
+    }
+
+    instance.map = function (f) {
+        instance.setRGB(f(), f(), f());
+    }
+
     instance.add = function (color) {
         instance.r += color.r;
         instance.g += color.g;
         instance.b += color.b;
-        return instance.enforceValidity();
+        return instance.enforceValidity(true);
     };
 
     instance.apply = function () {
         instance.context.fillStyle = instance.toString();
     };
 
-    instance.enforceValidity = function () {
+    /* if ‘returnRes’ is specified, return an object saying which values were wrong */
+    instance.enforceValidity = function (returnRes) {
         var nr = MATH.enforceInterval(instance.r, 0, 255);
         var ng = MATH.enforceInterval(instance.g, 0, 255);
         var nb = MATH.enforceInterval(instance.b, 0, 255);
+        var res = null;
 
-        if (instance.r === nr && instance.g === ng && instance.b === nb) {
-            return true;
+        if (instance.r === nr && instance.g === ng && instance.b === nb)
+        {
+            return null;
         }
-        else {
-            instance.r = nr;
-            instance.g = ng;
-            instance.b = nb;
-            return false;
+        else
+        {
+            if (typeof returnRes !== "undefined")
+            {
+                res = {
+                    r: instance.r !== nr,
+                    g: instance.g !== ng,
+                    b: instance.b !== nb
+                };
+            }
+            instance.setRGB(nr, ng, nb);
+            return res;
         }
     };
 
-    instance.initialize = function (red, green, blue) {
-        if (typeof red === "undefined" || typeof green === "undefined" || typeof blue === "undefined") {
-            if (Colors.mode === 0) {
-                instance.tiles[row][column].color.initialize();
-            } else if (Colors.mode === 1) {
-                instance.tiles[row][column].color.initializePretty();
-            } else if (Colors.mode === 2) {
-                instance.tiles[row][column].color.initialize(0, 0, 0);
-            } else if (Colors.mode === 3) {
-                instance.tiles[row][column].color.initialize(255, 255, 255);
-            }        }
-        else {
+    instance.initialize = function (red, green, blue)
+    {
+        if (typeof red === "undefined" || typeof green === "undefined" || typeof blue === "undefined")
+        {
+            if (Colors.mode === 0)
+            {   // random
+                instance.map(function () { return Random.between(0, 255); });
+            }
+            else if (Colors.mode === 1)
+            {   // pretty
+                instance.setRGB(
+                    randComponent(Colors.rIntensity),
+                    randComponent(Colors.gIntensity),
+                    randComponent(Colors.bIntensity)
+                );
+            }
+            else if (Colors.mode === 2)
+            {   // dark
+                instance.setRGB(0, 0, 0);
+            }
+            else if (Colors.mode === 3)
+            {   // bright
+                instance.setRGB(255, 255, 255);
+            }
+        }
+        else
+        {
             instance.r = red;
             instance.g = green;
             instance.b = blue;
         }
-        instance.enforceValidity();
-    };
-
-    instance.initializePretty = function () {
-        instance.r = randComponent(Color.rIntensity);
-        instance.g = randComponent(Color.gIntensity);
-        instance.b = randComponent(Color.bIntensity);
         instance.enforceValidity();
     };
 

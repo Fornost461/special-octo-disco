@@ -67,15 +67,7 @@ function makeGameArea() {
     }
 
     instance.clear = function () {
-        //~ if (instance.mode === 0) {
         instance.bgColor.initialize();
-        //~ } else if (instance.mode === 1) {
-            //~ instance.bgColor.initializePretty();
-        //~ } else if (instance.mode === 2) {
-            //~ instance.bgColor.initialize(0, 0, 0);
-        //~ } else if (instance.mode === 3) {
-            //~ instance.bgColor.initialize(255, 255, 255);
-        //~ }
         instance.bgColor.apply();
         context.fillRect(0, 0, canvas.width, canvas.height);
     };
