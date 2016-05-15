@@ -37,7 +37,7 @@ function makeGameArea() {
     instance.bgColor = makeColor(context);
 
     // private methods
-    var learnDimensions = function () {
+    var probeDimensions = function () {
         canvas.width = instance.getWidth();
         canvas.height = instance.getHeight();
     };
@@ -76,10 +76,10 @@ function makeGameArea() {
         requestAnimationFrame(f);
     };
 
-    learnDimensions();
+    probeDimensions();
 
     // update coordinates after user resizes window
-    addEventListener("resize", learnDimensions);
+    addEventListener("resize", probeDimensions);
 
     return instance;
 }
