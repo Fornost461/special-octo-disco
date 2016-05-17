@@ -83,7 +83,13 @@ function makeGrid(gameArea) {
         } else if (key === Keyboard.SPACE) {
             instance.toggleAnimation();
         } else if (key === Keyboard.H) {
-            alert("[mouse] paint\n[enter] generate a new scenery\n[space] play / pause\n[P] toggle pretty mode (enabled by default)\n[D] toggle dark mode\n[H] show this help");
+            alert("[mouse] paint\n"
+                + "[enter] generate a new scenery\n"
+                + "[space] play / pause\n"
+                + "[B] toggle bright mode\n"
+                + "[D] toggle dark mode\n"
+                + "[P] toggle pretty mode (enabled by default)\n"
+                + "[H] show this help");
         } else if (key === Keyboard.B) {
             Colors.mode = Colors.mode === 3 ? 1 : 3;
             //~ console.info("toggle bright mode: " + String(Colors.mode));
