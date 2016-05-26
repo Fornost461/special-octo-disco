@@ -1,0 +1,33 @@
+# Change Log
+# All notable changes to this project will be documented in this file.
+# This project adheres to Semantic Versioning (http://semver.org/).
+
+2.0.7 (2016-05-26)
+    changed:
+        - CHANGELOG: gave up Markdown for better simplicity.
+
+2.0.6 (2016-05-26)
+    changed:
+        - CHANGELOG: new separator between version number and date.
+
+2.0.5 (2016-05-25)
+    added:
+        - CHANGELOG file.
+
+2.0.2 (2016-05-17)
+    fixed:
+        - Help message did not mention bright mode.
+
+2.0.0 (2016-05-15)
+    added:
+        - Bright mode.
+
+    changed:
+        - The program no longer needs to reload the window when resized.
+        - Code has been refactored.
+
+1.0.0 (2016-05-13)
+    added:
+        - Three modes (pretty, dark and random).
+        - Changing or standing sceneries.
+        - Help message.
