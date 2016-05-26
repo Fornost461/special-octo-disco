@@ -200,7 +200,7 @@ function makeGrid(gameArea) {
     addEventListener("keydown", handleKeyDown);
 
     // update coordinates after user resizes window
-    addEventListener("resize", function()
+    addEventListener("resize", function ()
     {
         if (timeoutID !== null)
         {
