@@ -202,10 +202,7 @@ function makeGrid(gameArea) {
     // update coordinates after user resizes window
     addEventListener("resize", function ()
     {
-        if (timeoutID !== null)
-        {
-            clearTimeout(timeoutID);
-        }
+        clearTimeout(timeoutID);
         timeoutID = setTimeout(initialize, 100);
     });
 
