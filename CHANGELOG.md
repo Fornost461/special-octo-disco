@@ -2,15 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.0.5 - 2016-05-25
+## 2.0.6 / 2016-05-25
+#### Changed
+- CHANGELOG: new separator between version number and date.
+
+## 2.0.5 / 2016-05-25
 #### Added
 - CHANGELOG file.
 
-## 2.0.2 - 2016-05-17
+## 2.0.2 / 2016-05-17
 #### Fixed
 - Help message did not mention bright mode.
 
-## 2.0.0 - 2016-05-15
+## 2.0.0 / 2016-05-15
 #### Added
 - Bright mode.
 
@@ -18,7 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - The program no longer needs to reload the window when resized.
 - Code has been refactored.
 
-## 1.0.0 - 2016-05-13
+## 1.0.0 / 2016-05-13
 #### Added
 - 3 modes (pretty, dark and random).
 - Changing or standing sceneries.
