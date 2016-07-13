@@ -16,4 +16,4 @@ The code does not use an internet connection, it is supposed to work locally.
 This is an attempt to familiarize myself with `<canvas/>`. I have some experience in programming but not much with JavaScript, so my code is far from optimal.
 
 ![Public domain](http://i.creativecommons.org/p/zero/1.0/88x31.png)
-The license is [CC0](http://creativecommons.org/publicdomain/zero/1.0/), which means you should _not_ ask for my permission if you want to copy or modify the code, nor should you cite me as having authored it. Feel free to copy, improve and build better things from them!
+The license is [CC0](http://creativecommons.org/publicdomain/zero/1.0/), which means you can and should do whatever you want with the code without my permission and without mentioning me as its author. Feel free to copy and build better things from it!
