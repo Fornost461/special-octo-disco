@@ -2,7 +2,6 @@ if (typeof loadedFiles === "undefined") { throw new Error("module required"); }
 if (!loadedFiles.hasOwnProperty("Colors.js")) { throw new Error("module required"); }
 
 function makeTile(ctx, x = 0, y = 0, width = 10, height = 10) {
-    "use strict";
     var instance = {};
 
     // public fields
